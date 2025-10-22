@@ -2,7 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PelangganController;
 use App\Http\Controllers\ProfileController;
 
 Route::get('/', function () {
@@ -28,3 +30,11 @@ Route::post('/home/signup', [HomeController::class, 'signup'])->name('home.signu
 
 Route::get('/signin', [AuthController::class, 'showLogin'])->name('signin');
 Route::post('/process', [AuthController::class, 'process'])->name('login.process');
+
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+Route::get('pelanggan',[PelangganController::class, 'index'])->name('pelanggan.list');
+
+Route::get('pelanggan/create',[PelangganController::class, 'create'])->name('pelanggan.create');
+
+Route::post('pelanggan/store',[PelangganController::class, 'store'])->name('pelanggan.store');
