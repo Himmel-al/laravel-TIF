@@ -34,26 +34,20 @@ Route::post('/process', [AuthController::class, 'process'])->name('login.process
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-Route::get('pelanggan',[PelangganController::class, 'index'])->name('pelanggan.list');
+// Pelaggan
+Route::resource('pelanggan', PelangganController::class);
+// Route::get('pelanggan',[PelangganController::class, 'index'])->name('pelanggan.list');
+// Route::get('pelanggan/create',[PelangganController::class, 'create'])->name('pelanggan.create');
+// Route::post('pelanggan/store',[PelangganController::class, 'store'])->name('pelanggan.store');
+// Route::get('pelanggan/edit/{param1}',[PelangganController::class, 'edit'])->name('pelanggan.edit');
+// Route::post('pelanggan/update',[PelangganController::class, 'update'])->name('pelanggan.update');
+// Route::get('pelanggan/delete/{param1}',[PelangganController::class, 'destroy'])->name('pelanggan.destroy');
 
-Route::get('pelanggan/create',[PelangganController::class, 'create'])->name('pelanggan.create');
-
-Route::post('pelanggan/store',[PelangganController::class, 'store'])->name('pelanggan.store');
-
-Route::get('pelanggan/edit/{param1}',[PelangganController::class, 'edit'])->name('pelanggan.edit');
-
-Route::post('pelanggan/update',[PelangganController::class, 'update'])->name('pelanggan.update');
-
-Route::get('pelanggan/delete/{param1}',[PelangganController::class, 'destroy'])->name('pelanggan.destroy');
-
-Route::get('customer',[CustomerController::class, 'index'])->name('customer.list');
-
-Route::get('customer/create',[CustomerController::class, 'create'])->name('customer.create');
-
-Route::post('customer/store',[CustomerController::class, 'store'])->name('customer.store');
-
-Route::get('customer/edit/{param1}',[CustomerController::class, 'edit'])->name('customer.edit');
-
-Route::post('customer/update',[CustomerController::class, 'update'])->name('customer.update');
-
-Route::get('customer/delete/{param1}',[CustomerController::class, 'destroy'])->name('customer.destroy');
+// Customer
+Route::resource('customer', CustomerController::class);
+// Route::get('customer',[CustomerController::class, 'index'])->name('customer.list');
+// Route::get('customer/create',[CustomerController::class, 'create'])->name('customer.create');
+// Route::post('customer/store',[CustomerController::class, 'store'])->name('customer.store');
+// Route::get('customer/edit/{param1}',[CustomerController::class, 'edit'])->name('customer.edit');
+// Route::post('customer/update',[CustomerController::class, 'update'])->name('customer.update');
+// Route::get('customer/delete/{param1}',[CustomerController::class, 'destroy'])->name('customer.destroy');

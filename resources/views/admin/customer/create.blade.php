@@ -120,8 +120,8 @@
                     </a>
                 </li>
 
-                <li class="nav-item active ">
-                    <a href="{{ route('pelanggan.list') }}" class="nav-link">
+                <li class="nav-item ">
+                    <a href="{{ route('pelanggan.index') }}" class="nav-link">
                         <span class="sidebar-icon">
                             <svg class="icon icon-xs me-2" fill="currentColor" viewBox="0 0 20 20"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -130,6 +130,19 @@
                             </svg>
                         </span>
                         <span class="sidebar-text">Pelanggan</span>
+                    </a>
+                </li>
+
+                <li class="nav-item active">
+                    <a href="{{ route('customer.index') }}" class="nav-link">
+                        <span class="sidebar-icon">
+                            <svg class="icon icon-xs me-2" fill="currentColor" viewBox="0 0 20 20"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z"></path>
+                                <path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z"></path>
+                            </svg>
+                        </span>
+                        <span class="sidebar-text">Customer</span>
                     </a>
                 </li>
 
@@ -382,15 +395,15 @@
                             </a>
                         </li>
                         <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('pelanggan.list') }}"> Pelanggan </a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('customer.index') }}"> Customer </a></li>
                         <li class="breadcrumb-item active" aria-current="page">Tambah Data</li>
                     </ol>
                 </nav>
-                <h2 class="h4">Tambah Data Pelanggan</h2>
-                <p class="mb-0">Form Tambah Data Pelanggan</p>
+                <h2 class="h4">Tambah Data Customer</h2>
+                <p class="mb-0">Form Tambah Data Customer</p>
             </div>
             <div class="btn-toolbar mb-2 mb-md-0">
-                <a href="{{ route('pelanggan.create') }}"
+                <a href="{{ route('customer.index') }}"
                     class="btn btn-sm btn-gray-800 d-inline-flex align-items-center">
                     Kembali
                 </a>
@@ -403,8 +416,9 @@
 
         <div class="card card-body border-0 shadow mb-4">
             <h2 class="h5 mb-4">General information</h2>
-            <form action="{{ route('pelanggan.store') }}" method="POST">
+            <form action="{{ route('customer.store') }}" method="POST">
                 @csrf
+
                 @if ($errors->any())
                     <div class="alert alert-danger">
                         <ul class="mb-0">
@@ -414,66 +428,86 @@
                         </ul>
                     </div>
                 @endif
+
+                <div class="row">
+                    <div class="col-md-12 mb-3">
+                        <label for="address_line">Alamat</label>
+                        <input class="form-control" id="address_line" name="address_line" type="text"
+                            placeholder="Jl. Contoh No.01" required>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <label for="city">Kota</label>
+                        <input class="form-control" id="city" name="city" type="text"
+                            placeholder="Jakarta" required>
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                        <label for="state">Provinsi</label>
+                        <input class="form-control" id="state" name="state" type="text"
+                            placeholder="DKI Jakarta" required>
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                        <label for="postal_code">Kode Pos</label>
+                        <input class="form-control" id="postal_code" name="postal_code" type="number"
+                            placeholder="12345" required>
+                    </div>
+                </div>
+
                 <div class="row">
                     <div class="col-md-6 mb-3">
-                        <div>
-                            <label for="first_name">First Name</label>
-                            <input class="form-control" id="first_name" name="first_name" type="text"
-                                placeholder="Enter your first name" required>
-                        </div>
+                        <label for="country">Negara</label>
+                        <input class="form-control" id="country" name="country" type="text"
+                            placeholder="Indonesia" required>
                     </div>
+
                     <div class="col-md-6 mb-3">
-                        <div>
-                            <label for="last_name">Last Name</label>
-                            <input class="form-control" id="last_name" name="last_name" type="text"
-                                placeholder="Also your last name" required>
-                        </div>
+                        <label for="membership_type">Membership</label>
+                        <select class="form-select" id="membership_type" name="membership_type" required>
+                            <option disabled selected>Pilih</option>
+                            <option value="Regular">Regular</option>
+                            <option value="Premium">Premium</option>
+                            <option value="VIP">VIP</option>
+                        </select>
                     </div>
                 </div>
 
                 <div class="row align-items-center">
                     <div class="col-md-6 mb-3">
-                        <label for="birthday">Birthday</label>
-                        <div class="input-group">
-                            <span class="input-group-text">
-                                <svg class="icon icon-xs" fill="currentColor" viewBox="0 0 20 20"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd"
-                                        d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"
-                                        clip-rule="evenodd"></path>
-                                </svg>
-                            </span>
-                            <input data-datepicker="" class="form-control" id="birthday" name="birthday"
-                                type="text" placeholder="dd/mm/yyyy" required>
-                        </div>
+                        <label for="registration_date">Tanggal Daftar</label>
+                        <input data-datepicker="" class="form-control" id="registration_date"
+                            name="registration_date" type="text" placeholder="dd/mm/yyyy" required>
                     </div>
-                    <div class="col-md-6 mb-3">
-                        <label for="gender">Gender</label>
-                        <select class="form-select mb-0" id="gender" name="gender">
-                            <option disabled {{ old('gender') ? '' : 'selected' }}>Gender</option>
-                            <option value="Male" {{ old('gender') == 'Male' ? 'selected' : '' }}>Male</option>
-                            <option value="Female" {{ old('gender') == 'Female' ? 'selected' : '' }}>Female</option>
-                        </select>
 
+                    <div class="col-md-6 mb-3">
+                        <label for="last_purchase_date">Pembelian Terakhir</label>
+                        <input data-datepicker="" class="form-control" id="last_purchase_date"
+                            name="last_purchase_date" type="text" placeholder="dd/mm/yyyy">
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-md-6 mb-3">
-                        <div class="form-group">
-                            <label for="email">Email</label>
-                            <input class="form-control" id="email" name="email" type="email"
-                                placeholder="name@company.com" required>
-                        </div>
+                        <label for="total_spent">Total Belanja</label>
+                        <input class="form-control" id="total_spent" name="total_spent" type="number"
+                            step="0.01" placeholder="0.00" required>
                     </div>
+
                     <div class="col-md-6 mb-3">
-                        <div class="form-group">
-                            <label for="phone">Phone</label>
-                            <input class="form-control" id="phone" name="phone" type="number"
-                                placeholder="+12-345 678 910" required>
-                        </div>
+                        <label for="preferred_contact_method">Metode Kontak</label>
+                        <select class="form-select" id="preferred_contact_method" name="preferred_contact_method"
+                            required>
+                            <option disabled selected>Pilih</option>
+                            <option value="Email">Email</option>
+                            <option value="Telepon">Telepon</option>
+                            <option value="SMS">SMS</option>
+                        </select>
                     </div>
                 </div>
+
 
                 <div class="mt-3">
                     <button class="btn btn-success text-white mt-2 animate-up-2" type="submit">Simpan</button>

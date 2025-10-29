@@ -386,11 +386,11 @@
                         <li class="breadcrumb-item active" aria-current="page">Edit Data</li>
                     </ol>
                 </nav>
-                <h2 class="h4">Edit Data Pelanggan</h2>
-                <p class="mb-0">Form Perubahan Data Pelanggan</p>
+                <h2 class="h4">Edit Data Customer</h2>
+                <p class="mb-0">Form Perubahan Data Customer</p>
             </div>
             <div class="btn-toolbar mb-2 mb-md-0">
-                <a href="{{ route('pelanggan.create') }}"
+                <a href="{{ route('customer.list') }}"
                     class="btn btn-sm btn-gray-800 d-inline-flex align-items-center">
                     Kembali
                 </a>
@@ -403,85 +403,94 @@
 
         <div class="card card-body border-0 shadow mb-4">
             <h2 class="h5 mb-4">General information</h2>
-            <form action="{{ route('pelanggan.update') }}" method="POST">
+            <form action="{{ route('customer.update', ['param1' => $dataCustomer->customer_id]) }}" method="POST">
                 @csrf
+                @method('POST')
 
-
-                @if ($errors->any())
-                    <div class="alert alert-danger">
-                        <ul class="mb-0">
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
                 <div class="row">
                     <div class="col-md-6 mb-3">
-                        <div>
-                            <label for="first_name">First Name</label>
-                            <input class="form-control" id="first_name" name="first_name" type="text" value="{{ $dataPelanggan->first_name }}"
-                                placeholder="Enter your first name" required>
-                        </div>
+                        <label for="address_line">Address</label>
+                        <input type="text" class="form-control" name="address_line"
+                            value="{{ $dataCustomer->address_line }}" required>
                     </div>
+
                     <div class="col-md-6 mb-3">
-                        <div>
-                            <label for="last_name">Last Name</label>
-                            <input class="form-control" id="last_name" name="last_name" type="text" value="{{ $dataPelanggan->last_name }}"
-                                placeholder="Also your last name" required>
-                        </div>
+                        <label for="city">City</label>
+                        <input type="text" class="form-control" name="city" value="{{ $dataCustomer->city }}"
+                            required>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <label for="state">Province</label>
+                        <input type="text" class="form-control" name="state"
+                            value="{{ $dataCustomer->state }}" required>
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                        <label for="postal_code">Postal Code</label>
+                        <input type="text" class="form-control" name="postal_code"
+                            value="{{ $dataCustomer->postal_code }}" required>
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                        <label for="country">Country</label>
+                        <input type="text" class="form-control" name="country"
+                            value="{{ $dataCustomer->country }}" required>
                     </div>
                 </div>
 
                 <div class="row align-items-center">
                     <div class="col-md-6 mb-3">
-                        <label for="birthday">Birthday</label>
-                        <div class="input-group">
-                            <span class="input-group-text">
-                                <svg class="icon icon-xs" fill="currentColor" viewBox="0 0 20 20"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd"
-                                        d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"
-                                        clip-rule="evenodd"></path>
-                                </svg>
-                            </span>
-                            <input data-datepicker="" class="form-control" id="birthday" name="birthday" value="{{ $dataPelanggan->birthday }}"
-                                type="text" placeholder="dd/mm/yyyy" required>
-                        </div>
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <label for="gender">Gender</label>
-                        <select class="form-select mb-0" id="gender" name="gender">
-                            <option disabled {{ old('gender') ? '' : 'selected' }}>Gender</option>
-                            <option value="Male" {{ $dataPelanggan->gender == 'Male' ? 'selected' : '' }}>Male</option>
-                            <option value="Female" {{ $dataPelanggan->gender == 'Female' ? 'selected' : '' }}>Female</option>
+                        <label for="membership_type">Membership</label>
+                        <select name="membership_type" class="form-select" required>
+                            <option value="Regular"
+                                {{ $dataCustomer->membership_type == 'Regular' ? 'selected' : '' }}>Regular</option>
+                            <option value="Premium"
+                                {{ $dataCustomer->membership_type == 'Premium' ? 'selected' : '' }}>Premium</option>
+                            <option value="VIP" {{ $dataCustomer->membership_type == 'VIP' ? 'selected' : '' }}>VIP
+                            </option>
                         </select>
+                    </div>
 
+                    <div class="col-md-6 mb-3">
+                        <label for="registration_date">Registration Date</label>
+                        <input type="text" class="form-control" name="registration_date"
+                            value="{{ date('d/m/Y', strtotime($dataCustomer->registration_date)) }}"
+                            placeholder="dd/mm/yyyy" required>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-md-6 mb-3">
-                        <div class="form-group">
-                            <label for="email">Email</label>
-                            <input class="form-control" id="email" name="email" type="email" value="{{$dataPelanggan->email}}"
-                                placeholder="name@company.com" required>
-                        </div>
+                        <label for="last_purchase_date">Last Purchase Date</label>
+                        <input type="text" class="form-control" name="last_purchase_date"
+                            value="{{ $dataCustomer->last_purchase_date ? date('d/m/Y', strtotime($dataCustomer->last_purchase_date)) : '' }}"
+                            placeholder="dd/mm/yyyy">
                     </div>
+
                     <div class="col-md-6 mb-3">
-                        <div class="form-group">
-                            <label for="phone">Phone</label>
-                            <input class="form-control" id="phone" name="phone" type="number" value="{{$dataPelanggan->phone}}"
-                                placeholder="+12-345 678 910" required>
-                        </div>
+                        <label for="total_spent">Total Spent</label>
+                        <input type="number" step="0.01" class="form-control" name="total_spent"
+                            value="{{ $dataCustomer->total_spent }}" required>
                     </div>
                 </div>
 
-                <div class="mt-3">
-                    <button class="btn btn-info text-white mt-2 animate-up-2" type="submit">Simpan Perubahan</button>
+                <div class="mb-3">
+                    <label for="preferred_contact_method">Preferred Contact</label>
+                    <select name="preferred_contact_method" class="form-select" required>
+                        <option value="Email"
+                            {{ $dataCustomer->preferred_contact_method == 'Email' ? 'selected' : '' }}>Email</option>
+                        <option value="Telepon"
+                            {{ $dataCustomer->preferred_contact_method == 'Telepon' ? 'selected' : '' }}>Telepon
+                        </option>
+                        <option value="SMS"
+                            {{ $dataCustomer->preferred_contact_method == 'SMS' ? 'selected' : '' }}>SMS</option>
+                    </select>
                 </div>
 
-                <input type="hidden" name="pelanggan_id" value="{{ $dataPelanggan->pelanggan_id}}"/>
+                <button type="submit" class="btn btn-primary px-3">Update Customer</button>
             </form>
         </div>
 

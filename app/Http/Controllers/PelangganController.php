@@ -50,7 +50,7 @@ class PelangganController extends Controller
             'phone'      => $request->phone,
         ]);
 
-        return redirect()->route('pelanggan.list')->with('success', 'Penambahan Data Berhasil!');
+        return redirect()->route('pelanggan.index')->with('success', 'Penambahan Data Berhasil!');
 
         // dd($request->all());
     }
@@ -77,7 +77,7 @@ class PelangganController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
         $request->validate([
             'first_name' => ['required'],
@@ -90,8 +90,7 @@ class PelangganController extends Controller
 
         $birthday = date('Y-m-d', strtotime(str_replace('/', '-', $request->birthday)));
 
-        $pelanggan_id = $request->pelanggan_id;
-        $pelanggan = Pelanggan::findOrFail($pelanggan_id);
+        $pelanggan = Pelanggan::findOrFail($id);
 
         $pelanggan->update([
             'first_name' => $request->first_name,
@@ -102,7 +101,7 @@ class PelangganController extends Controller
             'phone'      => $request->phone,
         ]);
 
-        return redirect()->route('pelanggan.list')->with('success', 'Data berhasil diperbarui');
+        return redirect()->route('pelanggan.index')->with('success', 'Data berhasil diperbarui');
     }
 
     /**
@@ -113,6 +112,6 @@ class PelangganController extends Controller
         $pelanggan = Pelanggan::findOrFail($id);
         $pelanggan->delete();
 
-        return redirect()->route('pelanggan.list')->with('success', 'Data berhasil dihapus');
+        return redirect()->route('pelanggan.index')->with('success', 'Data berhasil dihapus');
     }
 }

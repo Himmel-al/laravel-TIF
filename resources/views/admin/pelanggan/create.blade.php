@@ -121,7 +121,7 @@
                 </li>
 
                 <li class="nav-item active ">
-                    <a href="{{ route('pelanggan.list') }}" class="nav-link">
+                    <a href="{{ route('pelanggan.index') }}" class="nav-link">
                         <span class="sidebar-icon">
                             <svg class="icon icon-xs me-2" fill="currentColor" viewBox="0 0 20 20"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -130,6 +130,19 @@
                             </svg>
                         </span>
                         <span class="sidebar-text">Pelanggan</span>
+                    </a>
+                </li>
+
+                <li class="nav-item ">
+                    <a href="{{ route('customer.list') }}" class="nav-link">
+                        <span class="sidebar-icon">
+                            <svg class="icon icon-xs me-2" fill="currentColor" viewBox="0 0 20 20"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z"></path>
+                                <path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z"></path>
+                            </svg>
+                        </span>
+                        <span class="sidebar-text">Customer</span>
                     </a>
                 </li>
 
@@ -382,7 +395,7 @@
                             </a>
                         </li>
                         <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('pelanggan.list') }}"> Pelanggan </a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('pelanggan.index') }}"> Pelanggan </a></li>
                         <li class="breadcrumb-item active" aria-current="page">Tambah Data</li>
                     </ol>
                 </nav>
@@ -390,7 +403,7 @@
                 <p class="mb-0">Form Tambah Data Pelanggan</p>
             </div>
             <div class="btn-toolbar mb-2 mb-md-0">
-                <a href="{{ route('pelanggan.list') }}"
+                <a href="{{ route('pelanggan.index') }}"
                     class="btn btn-sm btn-gray-800 d-inline-flex align-items-center">
                     Kembali
                 </a>

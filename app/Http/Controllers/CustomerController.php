@@ -1,10 +1,8 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Models\Customer;
 use Illuminate\Http\Request;
-
 
 class CustomerController extends Controller
 {
@@ -13,7 +11,7 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        $pageData['datacustomer'] = Customer::all();
+        $pageData['dataCustomer'] = Customer::all();
         return view('admin.customer.index', $pageData);
     }
 
@@ -22,7 +20,7 @@ class CustomerController extends Controller
      */
     public function create()
     {
-        return view('admin.Customer.create');
+        return view('admin.customer.create');
     }
 
     /**
@@ -31,28 +29,37 @@ class CustomerController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'first_name' => ['required'],
-            'last_name'  => ['required'],
-            'birthday'   => ['required', 'date'],
-            'gender'     => ['required', 'in:Male,Female'],
-            'email'      => ['required', 'email', 'unique:pelanggan,email'],
-            'phone'      => ['required', 'numeric'],
+            'address_line'             => 'required',
+            'city'                     => 'required',
+            'state'                    => 'required',
+            'postal_code'              => 'required|numeric',
+            'country'                  => 'required',
+            'membership_type'          => 'required|in:Regular,Premium,VIP',
+            'registration_date'        => 'required|date',
+            'last_purchase_date'       => 'nullable|date',
+            'total_spent'              => 'required|numeric',
+            'preferred_contact_method' => 'required|in:Email,Telepon,SMS',
         ]);
 
-        $birthday = date('Y-m-d', strtotime(str_replace('/', '-', $request->birthday)));
+        $registration_date  = date('Y-m-d', strtotime(str_replace('/', '-', $request->registration_date)));
+        $last_purchase_date = $request->last_purchase_date
+            ? date('Y-m-d', strtotime(str_replace('/', '-', $request->last_purchase_date)))
+            : null;
 
         Customer::create([
-            'first_name' => $request->first_name,
-            'last_name'  => $request->last_name,
-            'birthday'   => $birthday,
-            'gender'     => $request->gender,
-            'email'      => $request->email,
-            'phone'      => $request->phone,
+            'address_line'             => $request->address_line,
+            'city'                     => $request->city,
+            'state'                    => $request->state,
+            'postal_code'              => $request->postal_code,
+            'country'                  => $request->country,
+            'membership_type'          => $request->membership_type,
+            'registration_date'        => $registration_date,
+            'last_purchase_date'       => $last_purchase_date,
+            'total_spent'              => $request->total_spent,
+            'preferred_contact_method' => $request->preferred_contact_method,
         ]);
 
-        return redirect()->route('pelanggan.list')->with('success', 'Penambahan Data Berhasil!');
-
-        // dd($request->all());
+        return redirect()->route('customer.index')->with('success', 'Penambahan Data Berhasil!');
     }
 
     /**
@@ -70,39 +77,48 @@ class CustomerController extends Controller
     {
 
         $pageData['dataCustomer'] = Customer::findOrFail($param1);
-        return view('admin.Customer.edit', $pageData);
+        return view('admin.customer.edit', $pageData);
 
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
         $request->validate([
-            'first_name' => ['required'],
-            'last_name'  => ['required'],
-            'birthday'   => ['required', 'date'],
-            'gender'     => ['required', 'in:Male,Female'],
-            'email'      => ['required', 'email'],
-            'phone'      => ['required', 'numeric'],
+            'address_line'             => 'required',
+            'city'                     => 'required',
+            'state'                    => 'required',
+            'postal_code'              => 'required|numeric',
+            'country'                  => 'required',
+            'membership_type'          => 'required|in:Regular,Premium,VIP',
+            'registration_date'        => 'required|date',
+            'last_purchase_date'       => 'nullable|date',
+            'total_spent'              => 'required|numeric',
+            'preferred_contact_method' => 'required|in:Email,Telepon,SMS',
         ]);
 
-        $birthday = date('Y-m-d', strtotime(str_replace('/', '-', $request->birthday)));
+        $registration_date  = date('Y-m-d', strtotime(str_replace('/', '-', $request->registration_date)));
+        $last_purchase_date = $request->last_purchase_date
+            ? date('Y-m-d', strtotime(str_replace('/', '-', $request->last_purchase_date)))
+            : null;
 
-        $customer_id = $request->customer_id;
-        $customer = Customer::findOrFail($customer_id);
-
+        $customer = Customer::findOrFail($id);
         $customer->update([
-            'first_name' => $request->first_name,
-            'last_name'  => $request->last_name,
-            'birthday'   => $birthday,
-            'gender'     => $request->gender,
-            'email'      => $request->email,
-            'phone'      => $request->phone,
+            'address_line'             => $request->address_line,
+            'city'                     => $request->city,
+            'state'                    => $request->state,
+            'postal_code'              => $request->postal_code,
+            'country'                  => $request->country,
+            'membership_type'          => $request->membership_type,
+            'registration_date'        => $registration_date,
+            'last_purchase_date'       => $last_purchase_date,
+            'total_spent'              => $request->total_spent,
+            'preferred_contact_method' => $request->preferred_contact_method,
         ]);
 
-        return redirect()->route('pelanggan.list')->with('success', 'Data berhasil diperbarui');
+        return redirect()->route('customer.index')->with('success', 'Data berhasil diperbarui');
     }
 
     /**
@@ -113,6 +129,6 @@ class CustomerController extends Controller
         $customer = Customer::findOrFail($id);
         $customer->delete();
 
-        return redirect()->route('customer.list')->with('success', 'Data berhasil dihapus');
+        return redirect()->route('customer.index')->with('success', 'Data berhasil dihapus');
     }
 }
