@@ -2,19 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Pelanggan;
+use App\Models\Customer;
 use Illuminate\Http\Request;
 
 
-class PelangganController extends Controller
+class CustomerController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $pageData['dataPelanggan'] = Pelanggan::all();
-        return view('admin.pelanggan.index', $pageData);
+        $pageData['datacustomer'] = Customer::all();
+        return view('admin.customer.index', $pageData);
     }
 
     /**
@@ -22,7 +22,7 @@ class PelangganController extends Controller
      */
     public function create()
     {
-        return view('admin.pelanggan.create');
+        return view('admin.Customer.create');
     }
 
     /**
@@ -41,7 +41,7 @@ class PelangganController extends Controller
 
         $birthday = date('Y-m-d', strtotime(str_replace('/', '-', $request->birthday)));
 
-        Pelanggan::create([
+        Customer::create([
             'first_name' => $request->first_name,
             'last_name'  => $request->last_name,
             'birthday'   => $birthday,
@@ -69,8 +69,8 @@ class PelangganController extends Controller
     public function edit(string $param1)
     {
 
-        $pageData['dataPelanggan'] = Pelanggan::findOrFail($param1);
-        return view('admin.pelanggan.edit', $pageData);
+        $pageData['dataCustomer'] = Customer::findOrFail($param1);
+        return view('admin.Customer.edit', $pageData);
 
     }
 
@@ -90,10 +90,10 @@ class PelangganController extends Controller
 
         $birthday = date('Y-m-d', strtotime(str_replace('/', '-', $request->birthday)));
 
-        $pelanggan_id = $request->pelanggan_id;
-        $pelanggan = Pelanggan::findOrFail($pelanggan_id);
+        $customer_id = $request->customer_id;
+        $customer = Customer::findOrFail($customer_id);
 
-        $pelanggan->update([
+        $customer->update([
             'first_name' => $request->first_name,
             'last_name'  => $request->last_name,
             'birthday'   => $birthday,
@@ -110,9 +110,9 @@ class PelangganController extends Controller
      */
     public function destroy(string $id)
     {
-        $pelanggan = Pelanggan::findOrFail($id);
-        $pelanggan->delete();
+        $customer = Customer::findOrFail($id);
+        $customer->delete();
 
-        return redirect()->route('pelanggan.list')->with('success', 'Data berhasil dihapus');
+        return redirect()->route('customer.list')->with('success', 'Data berhasil dihapus');
     }
 }
