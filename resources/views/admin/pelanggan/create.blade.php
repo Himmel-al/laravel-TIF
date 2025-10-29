@@ -390,7 +390,7 @@
                 <p class="mb-0">Form Tambah Data Pelanggan</p>
             </div>
             <div class="btn-toolbar mb-2 mb-md-0">
-                <a href="{{ route('pelanggan.create') }}"
+                <a href="{{ route('pelanggan.list') }}"
                     class="btn btn-sm btn-gray-800 d-inline-flex align-items-center">
                     Kembali
                 </a>
