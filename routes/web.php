@@ -6,6 +6,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PelangganController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\CustomerController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -38,3 +39,21 @@ Route::get('pelanggan',[PelangganController::class, 'index'])->name('pelanggan.l
 Route::get('pelanggan/create',[PelangganController::class, 'create'])->name('pelanggan.create');
 
 Route::post('pelanggan/store',[PelangganController::class, 'store'])->name('pelanggan.store');
+
+Route::get('pelanggan/edit/{param1}',[PelangganController::class, 'edit'])->name('pelanggan.edit');
+
+Route::post('pelanggan/update',[PelangganController::class, 'update'])->name('pelanggan.update');
+
+Route::get('pelanggan/delete/{param1}',[PelangganController::class, 'destroy'])->name('pelanggan.destroy');
+
+Route::get('customer',[CustomerController::class, 'index'])->name('customer.list');
+
+Route::get('customer/create',[CustomerController::class, 'create'])->name('customer.create');
+
+Route::post('customer/store',[CustomerController::class, 'store'])->name('customer.store');
+
+Route::get('customer/edit/{param1}',[CustomerController::class, 'edit'])->name('customer.edit');
+
+Route::post('customer/update',[CustomerController::class, 'update'])->name('customer.update');
+
+Route::get('customer/delete/{param1}',[CustomerController::class, 'destroy'])->name('customer.destroy');
