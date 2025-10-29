@@ -476,7 +476,7 @@
                                         </a>
 
                                         {{-- Delete --}}
-                                        {{-- <form action="{{ route('customer.destroy', $row->customer_id) }}"
+                                        <form action="{{ route('customer.destroy', $row->customer_id) }}"
                                             method="POST"
                                             onsubmit="return confirm('Yakin ingin menghapus data ini?')">
                                             @csrf
@@ -491,7 +491,7 @@
                                                 </svg>
                                                 Hapus
                                             </button>
-                                        </form> --}}
+                                        </form>
                                     </td>
                                 </tr>
                             @endforeach
