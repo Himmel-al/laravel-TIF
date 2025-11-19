@@ -2,11 +2,12 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\PelangganController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\PelangganController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -51,3 +52,6 @@ Route::resource('customer', CustomerController::class);
 // Route::get('customer/edit/{param1}',[CustomerController::class, 'edit'])->name('customer.edit');
 // Route::post('customer/update',[CustomerController::class, 'update'])->name('customer.update');
 // Route::get('customer/delete/{param1}',[CustomerController::class, 'destroy'])->name('customer.destroy');
+
+// User
+Route::resource('users', UserController::class);
