@@ -38,8 +38,8 @@ class AuthController extends Controller
                 // kirim data user ke halaman admin
                 session(['user' => $user]);
                 if ($user['role'] === 'admin') {
-                    return view('admin.index', ['user' => $user]);
-                } else { 
+                    return view('admin.dashboard', ['user' => $user]);
+                } else {
                     return view('karyawan.index', ['user' => $user]);
                 }
             }

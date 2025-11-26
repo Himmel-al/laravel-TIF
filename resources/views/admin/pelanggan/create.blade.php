@@ -14,7 +14,7 @@
                                 </svg>
                             </a>
                         </li>
-                        <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('dashboard.index') }}">Dashboard</a></li>
                         <li class="breadcrumb-item"><a href="{{ route('pelanggan.index') }}"> Pelanggan </a></li>
                         <li class="breadcrumb-item active" aria-current="page">Tambah Data</li>
                     </ol>
