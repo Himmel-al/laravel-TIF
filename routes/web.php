@@ -10,7 +10,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PelangganController;
 
 
-Route::get('/dashboard', function () {
+Route::get('/', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
@@ -30,7 +30,7 @@ Route::post('/home/signup', [HomeController::class, 'signup'])->name('home.signu
 Route::get('/signin', [AuthController::class, 'showLogin'])->name('signin');
 Route::post('/process', [AuthController::class, 'process'])->name('login.process');
 
-Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+Route::resource('dashboard', DashboardController::class);
 
 // Pelaggan
 Route::resource('pelanggan', PelangganController::class);
